@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
+/* ! General Options*/
+html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Fasthand', cursive;
+}
+body {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 2vh 96vh 2vh;
+}
+/* ! HEADER */
+header{
+    background-color: black;
+    height: 100%;
+}
+/* ! MAIN */
+main {
+    height: 100%;
+    background-image: url(../Memory-Game-Assembler/resources/background.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* BOARD */
+.board{
+    height: 95%;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+}
+.board-cards {
+    height: 95%;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 1vh;
+    margin: auto;
+    perspective: 1000px;
+}
+
+.card-container {
+    border: 2px solid lightgray;
+    height: 100%;
+    width: 16vh;
+    margin: auto;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.5s;
+}
+
+.card {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.card-back {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    background-image: url(../Memory-Game-Assembler/resources/card-back.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.card-rotated {
+    transform: rotateY(180deg);
+}
+/* SCOREBOARD */
+.board .scoreboard {
+    background-image: url(../Memory-Game-Assembler/resources/old-paper.jpg);
+    background-size: cover;
+    background-position: center;
+    box-shadow: -3px -3px 4px 4px #D8CAA7, 2px 2px 4px 4px #AC6A20;
+    border-radius: 5px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 95%;
+    width: 15%;
+}
+.board .scoreboard span {
+    text-align: center;
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    font-weight: 900;
+    font-size: 6vh;
+}
+.board .scoreboard .player {
+    margin: auto;
+    width: 95%;
+    padding: 0;
+}
+.board .scoreboard .player p {
+    margin: 0;
+    text-align: left;
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+.board .scoreboard .player .player-name {
+    font-weight: 900;
+    font-size: 16px;
+}
+.board .scoreboard .player .player-time{
+    font-size: 15px;
+    font-weight: 500;
+}
+/* ! FOOTER */
+footer{
+    height: 100%;
+    background-color: black;
+}
+
+@media screen and (max-width:620px) {
+    .board .board-cards .card-container{
+        width: 80%;
+    }
+    .board .scoreboard .player p {
+        margin: auto;
+        font-size: small;
+    }
+};
+/*! DISPLAY NONE*/
+.hidden {
+    display: none;
+}
