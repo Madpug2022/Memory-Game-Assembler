@@ -15,32 +15,56 @@
 <body>
     <header></header>
     <main>
-        <section class="board">
-            <div class="board-cards">
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+        <section class="game-start">
+            <div class="start-board">
+                <div class="tittle-container"><h1><span>T</span><span>A</span><span>R</span><span>O</span><span>T</span></h1></div>
+                <div class="input-container">
+                    <article>
+                        <form id="playerName" class="playername-container">
+                            <label for="playername-input" class="playername-container-label">
+                                <input required type="text" minlength="5" id="playerNameInput" name="playerNameInput"
+                                class="playername-container-input">
+                                <span>Tell me your name</span>
+                            </label>
+                            <button type="submit" class="begin-btn"><span>Lets Begin</span><span>This is your furtune</span></button>
+                        </form>
+                    </article>
+                </div>
             </div>
+        </section>
+        <section class="board hidden">
+            <section class="board-cards hidden">
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+            </section>
+            <section class="end-game">
+                <div class="end-container">
+                    <h2>It is Over!</h2>
+                    <p>You finished in <span id="timeTook"></span></p>
+                    <button type="button" id="tryAgain" class="tryagain-btn">Try again</button>
+                </div>
+            </section>
             <div class="scoreboard">
                 <div class="scoreboard-tittle"><span>User Scores</span></div>
-                <div class="player"><p class="player-name">Matias</p><p class="player-time">16 seconds</p></div>
-                <div class="player"><p class="player-name">Daiana</p><p class="player-time">22 seconds</p></div>
-                <div class="player"><p class="player-name">Jhon Salchichon</p><p class="player-time">69 seconds</p></div>
-                <div class="player"><p class="player-name">Los Vergadores</p><p class="player-time">3 minutes</p></div>
-                <div class="player"><p class="player-name">Harry "El Alcoholico" Potter</p><p class="player-time">4 hours</p></div>
+                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
+                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
+                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
+                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
+                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
                 <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
                 <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
                 <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
