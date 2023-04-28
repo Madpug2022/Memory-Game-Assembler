@@ -18,7 +18,7 @@ header{
 /* ! MAIN */
 main {
     height: 100%;
-    background-image: url(../Memory-Game-Assembler/resources/background.jpg);
+    background-image: url('resources/background.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -133,7 +133,12 @@ main {
     padding: 2px;
     color: black;
 }
-.input-container article form button {
+.start-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input-container article form .begin-btn {
     animation: appear 6s forwards;
     animation-delay: 6s;
     opacity: 0;
@@ -153,13 +158,13 @@ main {
     background-color: transparent;
     font-family: inherit;
 }
-.input-container article form button span:first-child{
+.input-container article form .begin-btn span:first-child{
     position: relative;
     transition: color 600ms cubic-bezier(0.48, 0, 0.15, 1);
     z-index: 10;
     color: whitesmoke;
 }
-.input-container article form button span:last-child{
+.input-container article form .begin-btn span:last-child{
     color:black;
     display: block;
     position: absolute;
@@ -173,7 +178,7 @@ main {
     height: 16px;
     line-height: 16px;
 }
-.input-container article form button:after{
+.input-container article form .begin-btn:after{
     content: "";
     position: absolute;
     bottom: -50%;
@@ -186,14 +191,50 @@ main {
     transform: skewY(9.3deg) scaleY(0);
     z-index: 50;
 }
-.input-container article form button:hover:after{
+.input-container article form .begin-btn:hover:after{
     transform-origin: bottom center;
     transform: skewY(9.3deg) scaleY(2);
 }
-.input-container article form button:hover span:last-child{
+.input-container article form .begin-btn:hover span:last-child{
     transform: translateX(-50%) translateY(-100%);
     opacity: 1;
     transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+}
+.input-container article form .game-mode {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    opacity: 0;
+    animation: showIn 2s forwards;
+    margin-top: 1vh;
+}
+.input-container article form .game-mode .dificulty-btn{
+    color: whitesmoke;
+    font-size: 20px;
+    padding: 7px 10px;
+    font-family: inherit;
+    background-color: transparent;
+    color: whitesmoke;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    letter-spacing: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    cursor: pointer;
+    text-shadow:  0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 200px #03e9f4;
+}
+.input-container article form .game-mode .dificulty-btn:hover{
+    background: #03e9f4;
+    color: #050801;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 200px #03e9f4;
 }
 /* BOARD */
 .board{
@@ -201,6 +242,8 @@ main {
     width: 90%;
     display: flex;
     flex-direction: row;
+    opacity: 0;
+    animation: showIn 1s forwards;
 }
 .board-cards {
     height: 95%;
@@ -221,13 +264,15 @@ main {
     position: relative;
     transform-style: preserve-3d;
     transform: rotateY(0deg);
-    transition: transform 0.5s;
+    transition-duration: 0.5s;
+    z-index: 1;
 }
 
 .card {
     height: 100%;
     width: 100%;
     position: absolute;
+    user-select: none;
 }
 
 .card-back {
@@ -235,12 +280,12 @@ main {
     width: 100%;
     position: absolute;
     backface-visibility: hidden;
-    background-image: url(../Memory-Game-Assembler/resources/card-back.jpg);
+    background-image: url("/resources/card-back.jpg");
     background-size: cover;
     background-position: center;
 }
 
-.card-rotated {
+.flipped {
     transform: rotateY(180deg);
 }
 /* END BOARD */
@@ -250,6 +295,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    animation: showIn 1s forwards;
 }
 .end-container{
     height: 50%;
@@ -308,17 +355,14 @@ main {
 }
 /* SCOREBOARD */
 .board .scoreboard {
-    background-image: url(../Memory-Game-Assembler/resources/old-paper.jpg);
+    background-image: url("/resources/old-paper.jpg");
     background-size: cover;
     background-position: center;
     box-shadow: -3px -3px 4px 4px #D8CAA7, 2px 2px 4px 4px #AC6A20;
     border-radius: 5px;
     margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-rows: repeat(11, 1fr);
     height: 95%;
     width: 15%;
 }
@@ -357,7 +401,10 @@ footer{
 
 /*! DISPLAY NONE*/
 .hidden {
-    display: none;
+    display: none !important;
+}
+.opacate{
+    opacity: 0 !important;
 }
 /*?Animaciones*/
 @keyframes smoke {
@@ -386,6 +433,14 @@ footer{
 
     }
 }
+@keyframes showIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
 /*?MEDIA RESPONSIVE*/
 @media screen and (max-width:620px) {
     .board .board-cards .card-container{
@@ -394,5 +449,15 @@ footer{
     .board .scoreboard .player p {
         margin: auto;
         font-size: small;
+    }
+    .tittle-container h1 span {
+        font-size: 24px;
+        letter-spacing: 4px;
+    }
+    .input-container article form label {
+        font-size: 14px;
+    }
+    .input-container article form .begin-btn {
+        font-size: 14px;
     }
 };

@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <script defer src="script.js"></script>
+    <script defer src="initialize.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fasthand&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1408/1408347.png">
+    <link rel="icon" href="./resources/page icon.png">
     <title>Tarot Game</title>
 </head>
 <body>
@@ -26,50 +26,27 @@
                                 class="playername-container-input">
                                 <span>Tell me your name</span>
                             </label>
-                            <button type="submit" class="begin-btn"><span>Lets Begin</span><span>This is your furtune</span></button>
+                            <div class="start-button" id="startBtn"><button type="submit" id="beginBtn" class="begin-btn"><span>Lets Begin</span><span>This is your furtune</span></button></div>
+                            <div class="game-mode hidden" id="gameModeBtns"><button type="button" id="normalMode" class="dificulty-btn">Easy</button><button type="button" id="hardMode" class="dificulty-btn">Hard</button></div>
                         </form>
                     </article>
                 </div>
             </div>
         </section>
         <section class="board hidden">
-            <section class="board-cards hidden">
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
-                <div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>
+            <section class="board-cards" id="boardCards">
+                <!--<div class="card-container"><img class="card" src="resources/card-0.jpg"><div class="card-back"></div></div>-->
             </section>
-            <section class="end-game">
+            <section class="end-game hidden">
                 <div class="end-container">
                     <h2>It is Over!</h2>
                     <p>You finished in <span id="timeTook"></span></p>
-                    <button type="button" id="tryAgain" class="tryagain-btn">Try again</button>
+                    <button type="button" id="tryAgain" class="tryagain-btn">Restart</button>
                 </div>
             </section>
-            <div class="scoreboard">
+            <div class="scoreboard" id="scoreboard">
                 <div class="scoreboard-tittle"><span>User Scores</span></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
-                <div class="player"><p class="player-name"></p><p class="player-time"></p></div>
+                <!--<div class="player"><p class="player-name"></p><p class="player-time"></p></div>-->
             </div>
         </section>
     </main>
