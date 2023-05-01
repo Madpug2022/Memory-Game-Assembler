@@ -296,7 +296,7 @@ main {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    animation: showIn 1s forwards;
+    animation: showIn 2s forwards;
 }
 .end-container{
     height: 50%;
@@ -388,10 +388,12 @@ main {
 .board .scoreboard .player .player-name {
     font-weight: 900;
     font-size: 16px;
+    margin: 0;
 }
 .board .scoreboard .player .player-time{
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
+    margin: 0;
 }
 /* ! FOOTER */
 footer{

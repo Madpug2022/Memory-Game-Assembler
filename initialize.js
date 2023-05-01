@@ -13,7 +13,8 @@ const tryAgain = document.querySelector("#tryAgain");
 //DIVs
 const scoreboard = document.querySelector("#scoreboard");
 const boardCards = document.querySelector("#boardCards");
-// Spans
+// Spans y P
+const lastMessage = document.querySelector("#lastMessage");
 const timeTook = document.querySelector("#timeTook");
 //Sections
 const mainPage = document.querySelector(".game-start");
@@ -25,12 +26,11 @@ let shuffledCards = [];
 let pickedCards = [];
 let flipedCards = 0;
 let timer = 0;
-let playerNumber = 0;
 let cardsRemaining = 16;
 let playerPoints = 0;
 //Variable for scoreboard
-
-
+let nowPlaying = "";
+let lastPlayerTime = "";
 //! Functions
 function selectDificulty(){
     startBtn.classList.toggle("hidden");
@@ -57,22 +57,36 @@ function shuffle() {
 }
 };
 function createPlayerDiv(){
-    playerNumber++;
-    const playerDiv = document.createElement('div');
-    playerDiv.className = 'player';
+    for (const key in localStorage) {
+        if (key.startsWith('Player Name: _')) {
+            const playerDiv = document.createElement('div');
+            playerDiv.className = 'player';
 
 
-    const playerName = document.createElement('p');
-    playerName.className = 'player-name';
-    playerName.textContent = localStorage.getItem('playerName');
-    playerDiv.appendChild(playerName);
+            const playerName = document.createElement('p');
+            playerName.className = 'player-name';
+            playerName.textContent = localStorage.getItem(key);
+            playerDiv.appendChild(playerName);
 
-    const playerTime = document.createElement('p');
-    playerTime.className = 'player-time';
-    playerTime.setAttribute("data-time", playerNumber)
-    playerDiv.appendChild(playerTime);
+            const playerTime = document.createElement('p');
+            playerTime.className = 'player-time';
+            playerDiv.appendChild(playerTime);
 
-    scoreboard.appendChild(playerDiv);
+            const timeTaken = localStorage.getItem(`Time in seconds: _${key}`);
+            if (timeTaken) {
+                playerTime.textContent = `Time taken: ${timeTaken} seconds`;
+            } else {
+                playerTime.textContent = 'Time taken: Not played yet';
+            }
+
+            if (key === lastPlayerTime) {
+                playerTime.setAttribute("data-time", lastPlayerTime);
+            }
+
+            scoreboard.appendChild(playerDiv);
+            console.log(`key: ${key}, timeTaken: ${timeTaken}`)
+        }
+    }
 }
 function fillBoard(){
     for (let i = 0; i < shuffledCards.length; i++){
@@ -96,7 +110,7 @@ function fillBoard(){
 function flipCard(event){
     event.currentTarget.classList.add("flipped");
     flipedCards++;
-    setTimeout(evaluateMove, 1200)
+    setTimeout(evaluateMove, 1000)
 }
 function storeCardSrc(event){
     const cardSrc = event.target.getAttribute('data');
@@ -130,9 +144,9 @@ function evaluateMove(){
 function evaluateFinish(){
     if (cardsRemaining === 0){
         let finishTime =  timer;
-        const selector = `[data-time="${playerNumber}"]`;
-        const playerTimer = document.querySelector(selector);
-        playerTimer.innerText = "You took " + finishTime + " seconds";
+        const selector = `[data-time="${nowPlaying}"]`;
+        const playerTimer = document.querySelectorAll(selector);
+        playerTimer[playerTimer.length  - 1].innerText = "You took " + finishTime + " seconds";
         boardCards.classList.toggle("hidden");
         endGameBoard.classList.toggle("hidden");
         timeTook.innerText = finishTime;
@@ -140,7 +154,7 @@ function evaluateFinish(){
     }
 }
 function startTimer(){
-    const selector = `[data-time="${playerNumber}"]`;
+    const selector = `[data-time="${nowPlaying}"]`;
     const playerTimer = document.querySelector(selector);
     gameInterval = setInterval(function(){
         timer++;
@@ -149,6 +163,12 @@ function startTimer(){
 };
 function stopTimer(){
     clearInterval(gameInterval);
+    localStorage.setItem(`Time in seconds: _${nowPlaying}`, timer)
+}
+function convertTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins} min ${secs} sec`;
 }
 function easyMode(){
     startTimer()
@@ -161,10 +181,27 @@ function easyMode(){
     gameStart()
 }
 //HARD MODE
+function changeLastMessage(message){
+    lastMessage.innerText = message;
+}
+function flipForTime(){
+    const cardContainers = document.querySelectorAll(".card-container");
+        for(let i = 0; i < cardContainers.length; i++){
+            let container = cardContainers[i];
+            container.classList.add("flipped")
+    }
+    setTimeout(function(){
+    for(let i = 0; i < cardContainers.length; i++){
+        let container = cardContainers[i];
+        container.classList.remove("flipped")
+    }
+    startTimer();
+    },4000)
+};
 function flipCardHard(event){
     event.currentTarget.classList.add("flipped");
     flipedCards++;
-    setTimeout(evaluateMoveHard, 1200)
+    setTimeout(evaluateMoveHard, 100)
 }
 function evaluateMoveHard(){
 
@@ -180,31 +217,46 @@ function evaluateMoveHard(){
             playerPoints++;
             evaluateFinishHard();
         })
-}   else {
-    const cardContainers = document.querySelectorAll(".card-container");
-        for(let i = 0; i < cardContainers.length; i++){
-            let container = cardContainers[i];
-            container.classList.remove("flipped")
-            flipedCards = 0;
-            pickedCards = [];
+        } else {
+        const selector = `[data-time="${nowPlaying}"]`;
+        const playerTimer = document.querySelector(selector);
+        playerTimer.innerText = "You made " + playerPoints + " points";
+        boardCards.classList.toggle("hidden");
+        endGameBoard.classList.toggle("hidden");
+        let message = "";
+        if (playerPoints === 18) {
+            message = "The fortune favors you";
+        } else if (playerPoints >= 10 && playerPoints <= 16) {
+            message = "You can do better";
+        } else if (playerPoints >= 4 && playerPoints <= 8) {
+            message = "The fortune doesn't favors you";
+        } else {
+            message = "You are terrible at this";
         }
+        changeLastMessage(message);
+        stopTimer();
 }
 }
 };
 function evaluateFinishHard(){
     if (cardsRemaining === 0){
-        let finishTime =  timer;
-        const selector = `[data-time="${playerNumber}"]`;
+        const selector = `[data-time="${nowPlaying}"]`;
         const playerTimer = document.querySelector(selector);
-        playerTimer.innerText = "You took " + finishTime + " seconds";
+        playerTimer.innerText = "You made " + playerPoints + " points";
         boardCards.classList.toggle("hidden");
         endGameBoard.classList.toggle("hidden");
-        timeTook.innerText = finishTime;
         stopTimer();
     }
 }
 function hardMode(){
-
+    const cardContainers = document.querySelectorAll(".card-container");
+        for(let i = 0; i < cardContainers.length; i++){
+            let container = cardContainers[i];
+            container.addEventListener("click", flipCardHard);
+            container.addEventListener("click", storeCardSrc);
+        }
+        gameStart();
+        flipForTime();
 }
 function tryAgainFunction(){
     location.reload();
@@ -214,7 +266,11 @@ function tryAgainFunction(){
 playerName.addEventListener("submit", function(event){
     event.preventDefault();
     if (playerNameInput.value.length > 5){
-        localStorage.setItem("playerName", playerNameInput.value);
+        const timeStamp = Date.now();
+        const playername = `Player Name: _${timeStamp}`;
+        nowPlaying = playername;
+        lastPlayerTime = playername;
+        localStorage.setItem(playername, playerNameInput.value);
         selectDificulty();
         createPlayerDiv();
         fillBoard()
@@ -224,8 +280,10 @@ playerName.addEventListener("submit", function(event){
 }
 });
 normalMode.addEventListener("click", easyMode);
+hardModeBtn.addEventListener("click", hardMode);
 tryAgain.addEventListener("click", tryAgainFunction)
 //! Inicialization
 window.onload = function(){
     shuffle()
+    playerNameInput.value = "";
 }
